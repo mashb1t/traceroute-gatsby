@@ -4,14 +4,20 @@ import {useInputForm} from "./hook";
 import TracerouteHop from "./traceroute/interface";
 
 export interface InputFormState {
+    server?: string;
     target?: string;
 }
 
-const InputForm: React.FC<{ setArcsData: Function, setHops: Function }> = ({setArcsData, setHops}) => {
+const errorStyles = {
+    color: 'red'
+}
 
+const InputForm: React.FC<{ setArcsData: Function, setHops: Function }> = ({setArcsData, setHops}) => {
     const [error, setError] = React.useState<string>('');
+    const defaultServer = 'http://localhost:3000';
 
     const inputFormState: InputFormState = {
+        server: defaultServer,
         target: '',
     };
 
@@ -24,7 +30,7 @@ const InputForm: React.FC<{ setArcsData: Function, setHops: Function }> = ({setA
         try {
             setError('');
             setHops(null);
-            axios.post(`http://localhost:3000/traceroute`, {
+            axios.post(`${values.server}/traceroute`, {
                 target: values.target,
                 withGeoLocations: true
             })
@@ -75,6 +81,14 @@ const InputForm: React.FC<{ setArcsData: Function, setHops: Function }> = ({setA
         <form onSubmit={onSubmit}>
             <div>
                 <input
+                    name='server'
+                    id='server'
+                    placeholder='traceroute server ip address'
+                    onChange={onChange}
+                    defaultValue={defaultServer}
+                    required
+                />
+                <input
                     name='target'
                     id='target'
                     placeholder='domain / ip address'
@@ -82,7 +96,7 @@ const InputForm: React.FC<{ setArcsData: Function, setHops: Function }> = ({setA
                     required
                 />
                 <button type='submit'>Trace</button>
-                {error && <div>{error}</div>}
+                {error && <div style={errorStyles}>{error}</div>}
             </div>
         </form>
     );
