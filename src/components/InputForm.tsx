@@ -50,7 +50,6 @@ const InputForm: React.FC<{ setArcsData: Function, setHops: Function }> = ({setA
                             startLng: lastLng,
                             endLat: hop.geolocations?.ll[0],
                             endLng: hop.geolocations?.ll[1],
-                            // color: [['red', 'orange', 'blue', 'green'][Math.round(Math.random() * 3)], ['red', 'orange', 'blue', 'green'][Math.round(Math.random() * 3)]]
                         }
 
                         lastLat = hop.geolocations?.ll[0] ?? lastLat;
