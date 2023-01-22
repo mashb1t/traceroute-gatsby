@@ -32,20 +32,30 @@ const InputForm: React.FC<{ setArcsData: Function, setHops: Function }> = ({setA
                     console.log(res.data);
                     let lastLat: number | undefined = res.data.currentGeoLocation?.ll[0];
                     let lastLng: number | undefined = res.data.currentGeoLocation?.ll[1];
+                    let lastHop: TracerouteHop = {
+                        geolocations: res.data.currentGeoLocation,
+                        rtt1: "",
+                        hop: 0,
+                        ip: res.data.currentGeoLocation.ip
+                    };
+
                     setHops(res.data.data);
                     let filtered = res.data.data.filter((hop: TracerouteHop) => hop.ip !== "*" && hop.geolocations !== null);
                     let mapped = filtered.map(function (hop: TracerouteHop) {
+
                         let hopdata = {
                             hop: hop,
+                            lastHop: lastHop,
                             startLat: lastLat,
                             startLng: lastLng,
                             endLat: hop.geolocations?.ll[0],
                             endLng: hop.geolocations?.ll[1],
-                            color: [['red', 'orange', 'blue', 'green'][Math.round(Math.random() * 3)], ['red', 'orange', 'blue', 'green'][Math.round(Math.random() * 3)]]
+                            // color: [['red', 'orange', 'blue', 'green'][Math.round(Math.random() * 3)], ['red', 'orange', 'blue', 'green'][Math.round(Math.random() * 3)]]
                         }
 
                         lastLat = hop.geolocations?.ll[0] ?? lastLat;
                         lastLng = hop.geolocations?.ll[1] ?? lastLng;
+                        lastHop = hop;
 
                         return hopdata;
                     });
