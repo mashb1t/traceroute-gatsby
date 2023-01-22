@@ -53,8 +53,8 @@ const InputForm: React.FC<{ setArcsData: Function, setHops: Function }> = ({setA
                     console.log(mapped);
                 })
                 .catch(error => {
-                    console.log(`${error.response.data.exception}`);
-                    setError(`${error.response.data.exception}`);
+                    console.log(`${error.response?.data?.exception ?? error.message}`);
+                    setError(`${error.response?.data?.exception ?? error.message}`);
                 });
         } catch (error: any) {
             console.log(error);
@@ -73,7 +73,7 @@ const InputForm: React.FC<{ setArcsData: Function, setHops: Function }> = ({setA
                     required
                 />
                 <button type='submit'>Trace</button>
-                { error && <div>{error}</div>}
+                {error && <div>{error}</div>}
             </div>
         </form>
     );
