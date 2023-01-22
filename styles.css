@@ -6,3 +6,14 @@ body,
     margin: 0;
     padding: 0;
 }
+
+.container {
+    position: absolute;
+    padding: 20px;
+    z-index: 2;
+}
+
+.globe {
+    position: relative;
+    z-index: 1;
+}

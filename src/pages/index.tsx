@@ -2,10 +2,10 @@ import * as React from "react"
 import type {HeadFC, PageProps} from "gatsby"
 import Globe from 'react-globe.gl';
 import InputForm from "../components/InputForm";
+import HopList from "../components/traceroute/HopList";
 
 const pageStyles = {
     color: "#232129",
-    padding: 20,
     fontFamily: "-apple-system, Roboto, sans-serif, serif",
 }
 
@@ -18,6 +18,7 @@ const headingStyles = {
 const IndexPage: React.FC<PageProps> = () => {
 
     const [arcsData, setArcsData] = React.useState<any>([]);
+    const [hops, setHops] = React.useState<any>([]);
 
     React.useEffect(() => {
         // Gen random data
@@ -33,19 +34,24 @@ const IndexPage: React.FC<PageProps> = () => {
 
     return (
         <main style={pageStyles}>
-            <h1 style={headingStyles}>
-                Traceroute
-            </h1>
-            <InputForm setArcsData={setArcsData}/>
-            <Globe
-                globeImageUrl="//unpkg.com/three-globe/example/img/earth-day.jpg"
-                arcsData={arcsData}
-                arcColor={'color'}
-                arcDashLength={() => Math.random()}
-                arcDashGap={() => Math.random()}
-                arcDashAnimateTime={() => Math.random() * 4000 + 500}
-                backgroundColor={'#FFF'}
-            />
+            <div className={'container'}>
+                <h1 style={headingStyles}>
+                    Traceroute
+                </h1>
+                <InputForm setArcsData={setArcsData} setHops={setHops}/>
+                <HopList hops={hops}/>
+            </div>
+            <div className={'globe'}>
+                <Globe
+                    globeImageUrl="//unpkg.com/three-globe/example/img/earth-day.jpg"
+                    arcsData={arcsData}
+                    arcColor={'color'}
+                    arcDashLength={() => Math.random()}
+                    arcDashGap={() => Math.random()}
+                    arcDashAnimateTime={() => Math.random() * 4000 + 500}
+                    backgroundColor={'#FFF'}
+                />
+            </div>
         </main>
     )
 }
