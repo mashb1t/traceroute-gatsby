@@ -1,6 +1,7 @@
 import * as React from "react"
 import type {HeadFC, PageProps} from "gatsby"
 import Globe from 'react-globe.gl';
+import {useState} from "react";
 
 const pageStyles = {
     color: "#232129",
@@ -15,15 +16,20 @@ const headingStyles = {
 }
 
 const IndexPage: React.FC<PageProps> = () => {
-    // Gen random data
-    const N = 20;
-    const arcsData = ([...Array(N).keys()].map(() => ({
-        startLat: (Math.random() - 0.5) * 180,
-        startLng: (Math.random() - 0.5) * 360,
-        endLat: (Math.random() - 0.5) * 180,
-        endLng: (Math.random() - 0.5) * 360,
-        color: [['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)], ['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)]]
-    })));
+
+    const [arcsData, setArcsData] = React.useState<any>([]);
+
+    React.useEffect(()=>{
+        // Gen random data
+        const N = 20;
+        setArcsData([...Array(N).keys()].map(() => ({
+            startLat: (Math.random() - 0.5) * 180,
+            startLng: (Math.random() - 0.5) * 360,
+            endLat: (Math.random() - 0.5) * 180,
+            endLng: (Math.random() - 0.5) * 360,
+            color: [['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)], ['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)]]
+        })));
+    }, []);
 
     return (
         <main style={pageStyles}>
@@ -37,7 +43,7 @@ const IndexPage: React.FC<PageProps> = () => {
                 arcDashLength={() => Math.random()}
                 arcDashGap={() => Math.random()}
                 arcDashAnimateTime={() => Math.random() * 4000 + 500}
-                backgroundColor={'white'}
+                backgroundColor={'#FFF'}
             />
         </main>
     )
