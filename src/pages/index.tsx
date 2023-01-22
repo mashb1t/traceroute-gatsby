@@ -1,7 +1,7 @@
 import * as React from "react"
 import type {HeadFC, PageProps} from "gatsby"
 import Globe from 'react-globe.gl';
-import {useState} from "react";
+import InputForm from "../components/InputForm";
 
 const pageStyles = {
     color: "#232129",
@@ -19,7 +19,7 @@ const IndexPage: React.FC<PageProps> = () => {
 
     const [arcsData, setArcsData] = React.useState<any>([]);
 
-    React.useEffect(()=>{
+    React.useEffect(() => {
         // Gen random data
         const N = 20;
         setArcsData([...Array(N).keys()].map(() => ({
@@ -27,7 +27,7 @@ const IndexPage: React.FC<PageProps> = () => {
             startLng: (Math.random() - 0.5) * 360,
             endLat: (Math.random() - 0.5) * 180,
             endLng: (Math.random() - 0.5) * 360,
-            color: [['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)], ['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)]]
+            color: [['red', 'orange', 'blue', 'green'][Math.round(Math.random() * 3)], ['red', 'orange', 'blue', 'green'][Math.round(Math.random() * 3)]]
         })));
     }, []);
 
@@ -36,6 +36,7 @@ const IndexPage: React.FC<PageProps> = () => {
             <h1 style={headingStyles}>
                 Traceroute
             </h1>
+            <InputForm setArcsData={setArcsData}/>
             <Globe
                 globeImageUrl="//unpkg.com/three-globe/example/img/earth-day.jpg"
                 arcsData={arcsData}
