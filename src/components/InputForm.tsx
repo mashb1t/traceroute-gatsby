@@ -23,7 +23,7 @@ const errorStyles = {
 
 const InputForm: React.FC<{ setArcsData: Function, setHops: Function }> = ({setArcsData, setHops}) => {
     const [error, setError] = React.useState<string>('');
-    const defaultServer = 'http://localhost:3000';
+    const defaultServer = 'http://127.0.0.1:3000';
 
     const inputFormState: InputFormState = {
         server: defaultServer,

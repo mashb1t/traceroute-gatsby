@@ -1,0 +1,9 @@
+FROM node:alpine
+WORKDIR /app
+
+RUN apk add g++ make py3-pip
+
+COPY package.json .
+RUN npm install
+COPY . .
+CMD [ "npm", "run", "start" ]

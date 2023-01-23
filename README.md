@@ -1,54 +1,59 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby minimal TypeScript starter
-</h1>
+# Traceroute
 
-## 🚀 Quick start
+## How to use
 
-1.  **Create a Gatsby site.**
+Due to the nature of traceroute the traceroute-server from which traceroute is executed has to be run in your network to get an accurate result.
 
-    Use the Gatsby CLI to create a new site, specifying the minimal TypeScript starter.
+After starting the server you can simply enter the domain / ip address to traceroute and see the visualization after the command has finished on the server.
+
+## Setup
+
+### Docker
+
+1.  **Set up and start traceroute-server**
 
     ```shell
-    # create a new Gatsby site using the minimal TypeScript starter
-    npm init gatsby
+    git clone https://github.com/mashb1t/traceroute-server
+    cd traceroute-server
+    docker-compose build
+    docker-compose up -d
     ```
 
-2.  **Start developing.**
+    The server is now running at http://127.0.0.1:3000!
 
-    Navigate into your new site’s directory and start it up.
+2.  **(optional) Setup and start traceroute-gatsby**
+
+    You don't have to set up the page to use the project.
 
     ```shell
-    cd my-gatsby-site/
+    git clone https://github.com/mashb1t/traceroute-gatsby
+    cd traceroute-gatsby
+    docker-compose build
+    docker-compose up -d
+    ```
+
+    Gatsby is now running at http://127.0.0.1:8000!
+
+### Native
+
+1.  **Set up and start traceroute-server**
+
+    ```shell
+    git clone https://github.com/mashb1t/traceroute-server
+    cd traceroute-server
+    npm install
+    node server.js
+    ```
+    
+    The server is now running at http://127.0.0.1:3000!
+
+2.  **(optional) Setup and start traceroute-gatsby**
+
+    ```shell
+    git clone https://github.com/mashb1t/traceroute-gatsby
+    cd traceroute-gatsby
+    npm install
     npm run develop
     ```
 
-3.  **Open the code and start customizing!**
-
-    Your site is now running at http://localhost:8000!
-
-    Edit `src/pages/index.tsx` to see your site update in real-time!
-
-4.  **Learn more**
-
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-
-    - [Tutorials](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-
-    - [Guides](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-
-## 🚀 Quick start (Gatsby Cloud)
-
-Deploy this starter with one click on [Gatsby Cloud](https://www.gatsbyjs.com/cloud/):
-
-[<img src="https://www.gatsbyjs.com/deploynow.svg" alt="Deploy to Gatsby Cloud">](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/gatsbyjs/gatsby-starter-minimal-ts)
+    Gatsby is now running at http://127.0.0.1:8000!
