@@ -9,7 +9,7 @@ export interface InputFormState {
 }
 
 const errorStyles = {
-    color: 'red'
+    color: '#ff0000'
 }
 
 const InputForm: React.FC<{ setArcsData: Function, setHops: Function }> = ({setArcsData, setHops}) => {
@@ -29,13 +29,17 @@ const InputForm: React.FC<{ setArcsData: Function, setHops: Function }> = ({setA
     async function submitCallback() {
         try {
             setError('');
-            setHops(null);
+            setArcsData([]);
+            setHops([]);
             axios.post(`${values.server}/traceroute`, {
                 target: values.target,
                 withGeoLocations: true
             })
                 .then(res => {
-                    console.log(res.data);
+                    if (res.data?.exception) {
+                        throw new Error(res.data?.exception);
+                    }
+
                     let lastLat: number | undefined = res.data.currentGeoLocation?.ll[0];
                     let lastLng: number | undefined = res.data.currentGeoLocation?.ll[1];
                     let lastHop: TracerouteHop = {
@@ -65,15 +69,12 @@ const InputForm: React.FC<{ setArcsData: Function, setHops: Function }> = ({setA
                         return hopdata;
                     });
                     setArcsData(mapped);
-                    console.log(mapped);
                 })
                 .catch(error => {
-                    console.log(`${error.response?.data?.exception ?? error.message}`);
                     setError(`${error.response?.data?.exception ?? error.message}`);
                 });
         } catch (error: any) {
-            console.log(error);
-            // setError(error.message);
+            setError(`${error.response?.data?.exception ?? error.message}`);
         }
     }
 

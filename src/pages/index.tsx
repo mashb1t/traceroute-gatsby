@@ -17,13 +17,12 @@ const headingStyles = {
     maxWidth: 320,
 }
 
-const OPACITY = 1;
-
 const IndexPage: React.FC<PageProps> = () => {
-
     const [arcsData, setArcsData] = useState<any>([]);
     const [hops, setHops] = useState<Array<TracerouteHop>>([]);
-    const [hoverArc, setHoverArc] = useState<any>();
+    const [hoverArc, setHoverArc] = useState<boolean>();
+
+    const OPACITY = 1;
 
     React.useEffect(() => {
         // Gen random data
@@ -33,7 +32,6 @@ const IndexPage: React.FC<PageProps> = () => {
             startLng: (Math.random() - 0.5) * 360,
             endLat: (Math.random() - 0.5) * 180,
             endLng: (Math.random() - 0.5) * 360,
-            color: [['red', 'orange', 'blue', 'green'][Math.round(Math.random() * 3)], ['red', 'orange', 'blue', 'green'][Math.round(Math.random() * 3)]]
         })))
     }, []);
 
@@ -52,7 +50,6 @@ const IndexPage: React.FC<PageProps> = () => {
                     bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
                     backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
                     backgroundColor={'#000'}
-
                     arcsData={arcsData}
                     arcColor={hop => {
                         const op = !hoverArc ? OPACITY : hop === hoverArc ? OPACITY : OPACITY / 4;
@@ -72,7 +69,7 @@ const IndexPage: React.FC<PageProps> = () => {
                     pointLng={hop => hop?.geolocations?.ll[1]}
                     pointColor={() => 'orange'}
                     pointAltitude={0}
-                    pointRadius={0.1}
+                    pointRadius={0.5}
                     pointsMerge={false}
                 />
             </div>
