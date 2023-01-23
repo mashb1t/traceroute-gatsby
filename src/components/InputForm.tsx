@@ -8,6 +8,15 @@ export interface InputFormState {
     target?: string;
 }
 
+export interface HopData {
+    hop: TracerouteHop,
+    lastHop?: TracerouteHop,
+    startLat?: number,
+    startLng?: number,
+    endLat?: number,
+    endLng?: number,
+}
+
 const errorStyles = {
     color: '#ff0000'
 }
@@ -53,7 +62,7 @@ const InputForm: React.FC<{ setArcsData: Function, setHops: Function }> = ({setA
                     let filtered = res.data.data.filter((hop: TracerouteHop) => hop.ip !== "*" && hop.geolocations !== null);
                     let mapped = filtered.map(function (hop: TracerouteHop) {
 
-                        let hopdata = {
+                        let hopdata: HopData = {
                             hop: hop,
                             lastHop: lastHop,
                             startLat: lastLat,

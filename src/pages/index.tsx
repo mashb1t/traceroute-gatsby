@@ -2,7 +2,7 @@ import * as React from "react"
 import {useState} from "react"
 import type {HeadFC, PageProps} from "gatsby"
 import Globe from 'react-globe.gl';
-import InputForm from "../components/InputForm";
+import InputForm, {HopData} from "../components/InputForm";
 import HopList from "../components/traceroute/HopList";
 import TracerouteHop from "../components/traceroute/interface";
 
@@ -17,10 +17,12 @@ const headingStyles = {
     maxWidth: 320,
 }
 
+export const labelColor = '#ff8800';
+
 const IndexPage: React.FC<PageProps> = () => {
-    const [arcsData, setArcsData] = useState<any>([]);
+    const [arcsData, setArcsData] = useState<Array<HopData|Object>>([]);
     const [hops, setHops] = useState<Array<TracerouteHop>>([]);
-    const [hoverArc, setHoverArc] = useState<boolean>();
+    const [hoverArc, setHoverArc] = useState<HopData>();
 
     const OPACITY = 1;
 
@@ -42,7 +44,7 @@ const IndexPage: React.FC<PageProps> = () => {
                     Traceroute
                 </h1>
                 <InputForm setArcsData={setArcsData} setHops={setHops}/>
-                <HopList hops={hops}/>
+                <HopList hops={hops} setHoverArc={setHoverArc} arcsData={arcsData}/>
             </div>
             <div className={'globe'}>
                 <Globe
@@ -63,14 +65,12 @@ const IndexPage: React.FC<PageProps> = () => {
                     arcDashAnimateTime={1500}
                     arcsTransitionDuration={0}
 
-                    pointsData={hops}
-                    pointLabel={hop => hop?.geolocations?.city ? `${hop?.geolocations?.city}` : hop?.ip}
-                    pointLat={hop => hop?.geolocations?.ll[0]}
-                    pointLng={hop => hop?.geolocations?.ll[1]}
-                    pointColor={() => 'orange'}
-                    pointAltitude={0}
-                    pointRadius={0.5}
-                    pointsMerge={false}
+                    labelsData={hops}
+                    labelLabel={hop => `${hop?.ip}`}
+                    labelText={hop => hop?.geolocations?.city ? `${hop?.hop}: ${hop?.geolocations?.city}` : `${hop?.hop}`}
+                    labelLat={hop => hop?.geolocations?.ll[0]}
+                    labelLng={hop => hop?.geolocations?.ll[1]}
+                    labelColor={() => labelColor}
                 />
             </div>
         </main>
