@@ -1,8 +1,17 @@
-version: "3"
 services:
   client:
-    build:
+    build: 
       context: .
-      dockerfile: Dockerfile
-    ports:
-      - "80:80"
+      dockerfile: Dockerfile_dev
+    restart: unless-stopped
+    expose:
+      - 8000
+    hostname: mashb1t-traceroute
+    container_name: mashb1t-traceroute
+    networks:
+      - nginx_proxy
+
+networks:
+  nginx_proxy:
+    name: nginx_proxy
+    external: true
